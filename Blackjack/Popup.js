@@ -1,5 +1,4 @@
-
-//Funksjonen som starter når siden åpnes.
+//Funksjonen starter når siden åpnes
 
 window.onload = function () {
 

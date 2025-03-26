@@ -46,7 +46,7 @@
     height:100%;
   }
    
-  /* Animasjon for toppmeny */
+  /* Animasjon for toppmeny  her g[r fargene f;rst fra rod til graa ogsaa tilbake til r;d*/ 
   @keyframes menuColorShift {
     0% {
       background-color: #880a0a;
@@ -60,7 +60,7 @@
   }
    
   .toppmeny {
-    animation: menuColorShift 10s infinite;
+    animation: menuColorShift 10s infinite;     /* dette definerer det slik at fargendringene skjer i en loop */
     padding: 15px;
     display: flex;
     justify-content: space-between;
@@ -91,7 +91,7 @@
   }
    
   .sidebar-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.1);    /* gj;r det saan at hvis du gaar over med musa blir den 10% storre*/
   }
    
   .sidefelt a:hover {
@@ -231,3 +231,4 @@
     justify-content: center;
 
   }
+  
