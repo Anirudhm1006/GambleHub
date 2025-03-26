@@ -61,7 +61,7 @@ body {
 }
 
 .toppmeny {
-  animation: menuColorShift 10s infinite;
+  animation: menuColorShift 10s infinite;  
   padding: 15px;
   display: flex;
   justify-content: space-between;
@@ -82,11 +82,11 @@ body {
 
 .sidebar-icon {
   display: block;
-  width: 150px;  /* Juster størrelsen etter behov */
+  width: 150px;  
   height: auto;
-  margin: 10px auto; /* Sentrerer ikonet horisontalt og gir litt margin */
+  margin: 10px auto; 
   border-radius: 15px;
-  transition: transform 0.3s ease-in-out; /* Legg til overgangseffekt */
+  transition: transform 0.3s ease-in-out; /* Legger til overgangseffekt */
 }
 
 .sidebar-icon:hover {
@@ -95,7 +95,7 @@ body {
 
 
 .sidefelt a:hover {
-  background: #092709;
+  background: #092709; 
 }
 
 .container {
@@ -133,7 +133,7 @@ body {
   border-radius: 15px;
 }
 
-@keyframes zoom {
+@keyframes zoom {  /* Gj;r at bilde blir bittelitt store og mindre fra 100% til 105% */
   0% {
     transform: scale(1);
   }
@@ -162,11 +162,11 @@ body {
 
 .container, .toppmeny, .sidefelt, .hovedinnhold {
   position: relative;
-  z-index: 2;
+  z-index: 2; /*legger til øverst for å unngå overlapper*/
 }
 
-.trekant-animation {
-  position: fixed;
+.trekant-animation { 
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
@@ -178,7 +178,7 @@ body {
 /* Felles stil for alle trekantkolonner */
 .trekant-animation .trekant-column {
   position: fixed;
-  /* Beregn left: for eksempel: (var(--i) * 10%) - 5% gir 5%, 15%, 25%, ... */
+  /* Beregn left: for eksempel: (var(--i) * 10%) - 5% gir 5%, 15%, 25%, ... sorger for at treknatene er plasert riktig utover toppen av skjermen for de begynner a falle */
   left: calc((var(--i) * 10%) - 5%);
   animation: verticalMove 3s linear infinite;
   /* Forsinkelsen regnes slik at den første ikke har delay, andre 1s osv. */
@@ -203,7 +203,7 @@ body {
   }
 }
 
-/* Eksempel på trekantene – du kan justere størrelser etter ønske */
+/* trekant class slik at alle trekantene er like */
 .trekant {
   width: 0;
   height: 0;

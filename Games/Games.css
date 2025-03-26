@@ -81,11 +81,11 @@
   }
   
   .sidebar-icon {
-    width: 100px; /* Set a uniform width for all icons */
-    height: 100px; /* Set a uniform height for all icons */
-    object-fit: cover; /* Ensure the image fits within the specified dimensions */
+    width: 100px;
+    height: 100px; 
+    object-fit: cover; /*Passer på at den skal passe*/
     border-radius: 15px;
-    transition: transform 0.3s ease-in-out; /* Add transition effect */
+    transition: transform 0.3s ease-in-out; /*Legger til en transition effekt*/
   }
   
   .sidebar-icon:hover {
