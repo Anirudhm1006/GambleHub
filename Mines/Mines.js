@@ -37,7 +37,7 @@ document.getElementById("MinesForm").addEventListener("submit", function(e){
     totalBombs = document.querySelector("input[name=bombs]").value;
     betAmount = document.querySelector("input[name=bet]").value;
 
-    sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks") - betAmount));
+    sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks") - betAmount)); //Fjerner innsatsbeløpet fra saldoen
 
     //Edge case hvis brukeren prøver å vedde mer enn hen har
     if(betAmount > sessionStorage.getItem("gambleBucks")){
