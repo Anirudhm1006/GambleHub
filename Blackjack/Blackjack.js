@@ -57,7 +57,8 @@ else if(dealer.points >21){
   document.getElementById("Result").innerHTML = "You won";
 
   //Utbetaler gevinsten 
-  sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks") + (2*betAmount)));
+  sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks")) + (2 * Number(betAmount)));
+
 }
 
 //Spilleren taper hvis dealeren har flere poeng enn spillerens mens den er under 21
@@ -69,13 +70,13 @@ else if(dealer.points > player.points && dealer.points <=21){
 else if(dealer.points < player.points && player.points <=21){
       document.getElementById("Result").innerHTML = "You won";
       //Utbetaler gevinsten
-      sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks") + (2*betAmount)));
+      sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks")) + (2 * Number(betAmount)));
     }
 
 //Det blir en draw hvis spilleren og dealeren har lik poeng
 else if(dealer.points == player.points){
       document.getElementById("Result").innerHTML = "It's a draw";
-      sessionStorage.setItem("gambleBucks", sessionStorage.getItem("gambleBucks") + (1*betAmount));
+      sessionStorage.setItem("gambleBucks", sessionStorage.getItem("gambleBucks") + (1*Number(betAmount)));
     }
    
 
