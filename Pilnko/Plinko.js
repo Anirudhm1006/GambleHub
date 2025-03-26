@@ -1,33 +1,44 @@
-const canvas = document.getElementById('plinkoCanvas');
-const ip = "127.0.0.1";
-    const ctx = canvas.getContext('2d'); // createCircle, createRectangle, createTriangle, createLine
+//Definerer noen konstane verdier
+const canvas = document.getElementById('plinkoCanvas'); //Spilleplata 
+const ip = "127.0.0.1"; //Backend IP addresse
+    const ctx = canvas.getContext('2d'); 
 
-    const DECIMAL_MULTIPLIER = 1000000000000000000000000000000000000000000;
+    const DECIMAL_MULTIPLIER = 1000000000000000000000000000000000000000000; //Stort tall for økt presisjon
 
-    const WIDTH = 800;
-    const HEIGHT = 800;
-    const ballRadius = 7;
-    const obstacleRadius = 4;
-    const gravity = pad(0.4);
-    const horizontalFriction = 0.4;
-    const verticalFriction = 0.8;
-    let balls = [];
+    const WIDTH = 800; //Bredde til canvas
+    const HEIGHT = 800; // Høyde til canvas
+    const ballRadius = 7; //Radius til ballen
+    const obstacleRadius = 4; // Radius til hindringen
+    const gravity = pad(0.4); //Tyngekraft
+    const horizontalFriction = 0.4; //Vannrett friksjon
+    const verticalFriction = 0.8; //Loddrett friksjon
+    let balls = []; // Ball arrayet
 
-    const obstacles = [];
-    const sinks = [];
-    let multipliers = [10, 8, 5, 2.5, 2, 1.5, 1, 0.5, 1, 1.5, 2, 2.5, 5, 8, 10];
+    const obstacles = []; // Hindring arrayet
+    const sinks = []; // Hull arrayet
+    let multipliers = [10, 8, 5, 2.5, 2, 1.5, 1, 0.5, 1, 1.5, 2, 2.5, 5, 8, 10]; // Multipliers arrayet
 
-    let betAmount = 0;
+    let betAmount = 0; // Innsatsbeløpet
 
+    //Funksjon for å gjøre om til et heltall
     function pad(n) {
       return n * DECIMAL_MULTIPLIER;
     }
 
+    // Funksjon for å gjøre om til desimal tall
     function unpad(n) {
       return Math.floor(n / DECIMAL_MULTIPLIER);
     }
 
+    //Padding og Unpadding brukes her for å unngå presisjonsfeil når programmet 
+    // skal kjøres på ulike maskiner.
+    
+    //Forskjellige maskiner tolker desimaler annerledes og derfor
+    // er det lurt å gjøre om til et helttall før man regner på det
 
+
+
+    //Event emitter definisjon siden det er nettleser runtime 
     class MyEmitter extends EventTarget {
       emit(eventName, detail) {
         this.dispatchEvent(new CustomEvent(eventName, { detail }));
@@ -40,44 +51,45 @@ const ip = "127.0.0.1";
   
   const emitter = new MyEmitter();
 
-    // Create obstacles in a pyramid shape
+    // Lager hindringer
     const rows = 16;
     for (let row = 2; row < rows; row++) {
       const numObstacles = row + 1;// 3
       const y = 0 + row * 35;
       const spacing = 36;
       for (let col = 0; col < numObstacles; col++) {
-        const x = WIDTH / 2 - spacing * (row / 2 - col);
-        obstacles.push({ x: pad(x), y: pad(y), radius: obstacleRadius });
+        const x = WIDTH / 2 - spacing * (row / 2 - col); //Passer på at hindringene er plassert likt
+        obstacles.push({ x: pad(x), y: pad(y), radius: obstacleRadius }); // Legger dem til arrayet
       }
     }
 
-    // Create sinks at the bottom as rectangles
-    const sinkWidth = 36;
-    const NUM_SINKS = 15;
+    // Lager hull
+    const sinkWidth = 36; //Bredde på hullet
+    const NUM_SINKS = 15; // Antall hull
     for (let i = 0; i < NUM_SINKS; i++) {
       const x = WIDTH / 2 + (i - NUM_SINKS/2) * (sinkWidth) + obstacleRadius;
       const y = HEIGHT - 240;
       const width = sinkWidth;
       const height = width;
-      sinks.push({ x, y, width, height });
+      sinks.push({ x, y, width, height }); //Legger dem til i arrayet
     }
 
 
 
 
 
-
+    //Class objekt for ballen
     class Ball {
       constructor(x, y, radius, color) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.color = color;
-        this.vx = 0;
-        this.vy = 0;
+        this.x = x; //Ballens x verdi
+        this.y = y; // Ballens y verdi
+        this.radius = radius; // Ballens radius
+        this.color = color; // Ballens farge
+        this.vx = 0; // Ballens horisontal fart
+        this.vy = 0; // Ballens vertikal fart
       }
 
+      //Metode for å tegne ballen på canvas
       draw() {
         ctx.beginPath();
         ctx.arc(unpad(this.x), unpad(this.y), this.radius, 0, Math.PI * 2);
@@ -86,31 +98,32 @@ const ip = "127.0.0.1";
         ctx.closePath();
       }
       
+      //Endrer egenskapene til ballen hver frame
       update() {
-        // change the velocity, change the positions
-        this.vy = this.vy + gravity;
-        this.x += this.vx; // x = x1 + v
-        this.y += this.vy;
+        
+        this.vy = this.vy + gravity; //Endrer vertikal farten mtp tyngekraft
+        this.x += this.vx; // Endrer horisontal posisjon 
+        this.y += this.vy; // Endrer vertikal posisjon
 
-        // Collision with obstacles
+        // Kollisjoner med hindringene
         obstacles.forEach(obstacle => {
           const dist = Math.hypot(this.x - obstacle.x, this.y - obstacle.y);
           if (dist < pad(this.radius + obstacle.radius)) {
-            // Calculate collision angle
+            // Regner kollisjonsvinkelen
             const angle = Math.atan2(this.y - obstacle.y, this.x - obstacle.x);
-            // Reflect velocity
+            // Regner ut farten i alle vektorer ved bruk av fysikk
             const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
             this.vx = (Math.cos(angle) * speed * horizontalFriction);
             this.vy = Math.sin(angle) * speed * verticalFriction;
 
-            // Adjust position to prevent sticking
+            // Justerer overlap hvis det finnes
             const overlap = this.radius + obstacle.radius - unpad(dist);
             this.x += pad(Math.cos(angle) * overlap);
             this.y += pad(Math.sin(angle) * overlap);
           }
         });
 
-        // Collision with sinks
+        // Kollisjon med hull
         sinks.forEach((sink, index) => {
           if (
             unpad(this.x) > sink.x - sink.width / 2 &&
@@ -118,8 +131,8 @@ const ip = "127.0.0.1";
             unpad(this.y) + this.radius > sink.y - sink.height / 2 &&
             unpad(this.y) + this.radius < sink.y - sink.height / 2.5
           ) {
-            this.vx = 0;
-            emitter.emit("Collision", {index:index});
+            this.vx = 0; //Nullstiller horisontal fart ved hull kollisjon
+            emitter.emit("Collision", {index:index});//Emitter kollisjon hendelsen
 
             
           }
@@ -129,7 +142,7 @@ const ip = "127.0.0.1";
 
 
 
-
+    //Funksjonen for å tegne hindringene
     function drawObstacles() {
       ctx.fillStyle = 'white';
       obstacles.forEach(obstacle => {
@@ -140,11 +153,12 @@ const ip = "127.0.0.1";
       });
     }
 
+    //Funksjonen for å tegne hullene
     function drawSinks() {
       ctx.fillStyle = 'green';
-      ctx.textAlign = "center";  // Center text horizontally
-      ctx.textBaseline = "middle"; // Center text vertically
-      ctx.font = "15px Arial"; // Set font size and type
+      ctx.textAlign = "center";  
+      ctx.textBaseline = "middle"; 
+      ctx.font = "15px Arial";
 
 
       for (let i = 0; i<sinks.length; i++)  {
@@ -152,22 +166,26 @@ const ip = "127.0.0.1";
         ctx.fillRect(sink.x, sink.y - sink.height / 2, sink.width - obstacleRadius * 2, sink.height);
 
 
-        ctx.fillStyle = "white"; // Set text color
-        ctx.fillText(`${multipliers[i]}x`, sink.x + sink.width / 2 - obstacleRadius, sink.y); // Position text
-        ctx.fillStyle = "green"; // Reset fill color for next sink
+        ctx.fillStyle = "white"; 
+        ctx.fillText(`${multipliers[i]}x`, sink.x + sink.width / 2 - obstacleRadius, sink.y); 
+        ctx.fillStyle = "green"; 
         
       };
     }
 
+    //Legger til ball i arrayet
     function addBall(x) {
       const newBall = new Ball(pad(x), pad(50), ballRadius, 'red');
       balls.push(newBall);
     }
 
+    //Legger til hendelseslyttere på add-ball knappen
     document.getElementById("add-ball").addEventListener("click", ()=>{
-      betAmount = Number(document.querySelector("input[name=bet]").value);
-      sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks"))-betAmount);
 
+      betAmount = Number(document.querySelector("input[name=bet]").value);//Innsatsbeløpet
+      sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks"))-betAmount);//Fjerner innsatsbeløpet fra saldoen
+
+      //Sender POST request til backenden for å hente informasjon
       fetch(`http://${ip}:3001/sendPath`, {
       method: "POST",
       headers: {
@@ -177,16 +195,19 @@ const ip = "127.0.0.1";
       })
       .then(response => response.json())
       .then(data => {
-      console.log("Server response: ", data);
-      const serverMessage = data.response; 
-      let money = betAmount*parseFloat(multipliers[serverMessage.sink]);
+
+
+      const serverMessage = data.response; //Svar fra server
+
+      //Utbetalingen behandles med engang siden vi vet hvor ballen skal
+      let money = betAmount*parseFloat(multipliers[serverMessage.sink]); 
       updateMoney(money);
-      betAmount=0;
+      betAmount=0;//Innsatsbeløpet nullstilles
       
-      addBall(serverMessage.xValue);
+      addBall(serverMessage.xValue); //Tegner ballen på spilleplata med X-verdien fra serveren
 
       
-
+      //Endrer visning ved kollisjon
       emitter.on("Collision", function(data){
 
 
@@ -197,12 +218,14 @@ const ip = "127.0.0.1";
       
       
       })
+      //Skriver ut evt feilmeldinger
       .catch(error => console.error("Error:", error));
       
       
       
        })
 
+    //Funksjon for å tegne ballene
     function draw() {
       ctx.clearRect(0, 0, WIDTH, HEIGHT);
       drawObstacles();
@@ -213,35 +236,18 @@ const ip = "127.0.0.1";
       });
     }
 
+    //Game Loop. Bruker recursion for å kjøre update() hver frame
     function update() {
       draw();
-      requestAnimationFrame(update);
+      requestAnimationFrame(update);//Kjører recursion med mindre nettsiden vil bruke ressurser på noe annet
     }
 
 
-    document.getElementById("PlinkoForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      
-      let totalBalls = document.querySelector("input[name=balls]").value;
-      console.log(totalBalls);
-      betAmount += document.querySelector("input[name=bet]").value;
-      if(betAmount > sessionStorage.getItem("gambleBucks")){
-          alert("Du er blakk mann hva faen");
-          return null;
-      }
-      
+    
 
-      for (let i = 0; i < totalBalls; i++) {
-        setTimeout(function() {
-          addBall(401);
-        }, i * 100); // 100ms delay between balls
-      }
+    update(); //Setter i gang game loop
 
-  
-  })
-
-    update();
-
+    //Oppdaterer penger
     function updateMoney(AddAmount){
       if(!sessionStorage.getItem("gambleBucks")){
           console.log("Error: Currency not found in SessionStorage.");
