@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mitt Blackjack Spill</title>
+  <link rel="stylesheet" href="./HigherLower.css">
+
+  <script>
+    //Sjekker om det finnes en verdi for gamble bucks. Hvis ikke, legger den til en ny verdi for den. 
+    window.onload = function (){
+      if(!sessionStorage.getItem("gambleBucks")){
+        if(localStorage.getItem("sessionBalance")){
+          sessionStorage.setItem("gambleBucks", localStorage.getItem("sessionBalance"));
+        }
+        else{
+          sessionStorage.setItem("gambleBucks", 1000);
+        }
+      }
+
+      document.getElementsByClassName("MoneyDisplayText")[0].innerHTML = `Balance: ${Math.round(sessionStorage.getItem("gambleBucks"))} GambleBucks`;
+
+    }
+
+    //Fjerner gamblebucks fra localstorage når nettleseren skal lukkes.
+
+    window.addEventListener("beforeunload", function () {
+      if(!navigator.userAgent.includes("Chrome")){
+        localStorage.removeItem("sessionBalance");
+      }
+
+    });
+
+
+
+  </script>
+
+</head>
+
+<body>
+  <body>
+    <div class="toppmeny">
+      <a href="../Home/Hovedside.html">
+      <img src="./images/Logo.png" alt="Gamble Hub Logo" class="logo">
+    </a>
+
+    <div class="money-container">
+      <img src="./images/Pengeikon.png" alt="Pengeikon" class="money-icon">
+      <p class="MoneyDisplayText">1000</p>
+    </div>
+
+      <div>
+        <a href="../brukervilkaar.html">
+          <button class="knapp">Brukervilkår</button>        
+        </a>
+      </div>
+  </div>
+      </div>
+      <div class="container">
+        <div class="sidefelt">
+          <a href="../Blackjack\Blackjack.html">
+            <img src="./images/Blackjack.png" alt="Blackjack" class="sidebar-icon">
+          </a>
+          <a href="../Mines\Mines.html">
+            <img src="./images/Mines.png" alt="Poker" class="sidebar-icon">
+          </a>
+          <a href="../HigherLower/HigherLower.html">
+            <img src="./images/Backarat.png" alt="Backarat" class="sidebar-icon">
+          </a>
+          <a href="../Pilnko/Plinko.html">
+            <img src="./images/Plinko.png" alt="Backarat" class="sidebar-icon">
+          </a>
+        </div>
+ 
+  <div id="Spill-conteinerg" class="container2">
+
+    <h1 id="title">Velg et tall</h1>
+
+    <div id="ProbMulti">
+      <div id="Prob">
+        <h3>Sannsynlighet</h3>
+        <p id="ProbDisplay"></p>
+      </div>
+
+      <div id="Multi">
+        <h3>Multiplier</h3>
+        <p id="MultiDisplay"></p>
+
+      </div>
+
+
+    </div>
+
+    <div class="slider-container">
+        <input type="range" min="0" max="100" value="50" class="slider" id="slider">
+        <div class="value" id="valueDisplay">50</div>
+    </div>
+
+    <div id="formDiv">
+        <form id="radioForm">
+          <div>
+            <input type="radio" id="higher" name="valg" value="Høyere">
+            <label for="higher">Høyere</label>
+
+            <input type="radio" id="lower" name="valg"value="Lavere">
+            <label for="lower">Lavere</label><br>
+
+          </div>
+            
+
+            <div>
+              <h2>Velg innsatsbeløp</h2>
+            <input type="number" id="betAmount" min="1" name="bet" placeholder="Innsatsbeløp">
+            
+            </div>
+
+            <input type="submit" value="Spill">
+
+        </form>
+    </div>
+
+  </div>
+
+  <div class="trekant-animation">
+    <div class="trekant-column" style="--i: 1;">
+      <div class="trekant red"></div>
+    </div>
+    <div class="trekant-column" style="--i: 2;">
+      <div class="trekant darkgray"></div>
+    </div>
+    <div class="trekant-column" style="--i: 3;">
+      <div class="trekant green"></div>
+    </div>
+    <div class="trekant-column" style="--i: 4;">
+      <div class="trekant red"></div>
+    </div>
+    <div class="trekant-column" style="--i: 5;">
+      <div class="trekant darkgray"></div>
+    </div>
+    <div class="trekant-column" style="--i: 6;">
+      <div class="trekant darkgray"></div>
+    </div>
+    <div class="trekant-column" style="--i: 7;">
+      <div class="trekant green"></div>
+    </div>
+    <div class="trekant-column" style="--i: 8;">
+      <div class="trekant red"></div>
+    </div>
+    <div class="trekant-column" style="--i: 9;">
+      <div class="trekant green"></div>
+    </div>
+    <div class="trekant-column" style="--i: 9;">
+      <div class="trekant red"></div>
+    </div>
+  </div>
+
+
+ 
+</body>
+</html>
+ <script src="./HigherLower.js"></script>
+ 

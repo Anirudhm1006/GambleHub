@@ -1,0 +1,233 @@
+.money-container {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+ 
+.money-icon {
+  width: 50px; /* Juster størrelsen etter behov */
+  height: auto;
+  margin-right: 8px;
+}
+ 
+.MoneyDisplayText {
+  font-size: 16px;
+  font-weight: bold;
+  color: #b98e21;
+}
+/* Reset og basisoppsett */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+   
+  /* Body styling */
+  body {
+    background-color: #1a1a1a; /* Mørk bakgrunn */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 1rem;
+  }
+   
+  /* Elementstabling for layout */
+  .container, .toppmeny, .sidefelt {
+    position: relative;
+    z-index: 2;
+  }
+
+  .container2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: auto;
+    margin: 5px;
+    height:100%;
+  }
+   
+  /* Animasjon for toppmeny */
+  @keyframes menuColorShift {
+    0% {
+      background-color: #880a0a;
+    }
+    50% {
+      background-color: #444444;
+    }
+    100% {
+      background-color: #880a0a;
+    }
+  }
+   
+  .toppmeny {
+    animation: menuColorShift 10s infinite;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    margin: 10px;
+  }
+   
+  /* Sidefelt styling */
+  .sidefelt {
+    width: 200px;
+    background: #062106;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    margin: 10px;
+  }
+   
+  .sidebar-icon {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 10px auto;
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+  }
+   
+  .sidebar-icon:hover {
+    transform: scale(1.1);
+  }
+   
+  .sidefelt a:hover {
+    background: #092709;
+  }
+   
+  /* Container styling */
+  .container {
+    display: flex;
+    flex: 1;
+    border-radius: 15px;
+    margin: 10px;
+    overflow: hidden;
+  }
+   
+  /* Logo styling */
+  .logo {
+    height: 80px;
+    border-radius: 10px;
+  }
+   
+  /* Spillcontainer */
+  #Spill-conteinerg {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    max-width: 1200px;
+    /*margin: 2rem auto;*/
+   /* padding: 2rem;*/
+    background: #2c2c2c;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    height:auto;
+  }
+   
+  #Spill-conteinerg p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+   
+  /* Knappestiler */
+  .knapp {
+    background-color: #880a0a;  /* Rød knapp */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+   
+  button:hover {
+    background-color: #2ecc71;
+    transform: scale(1.05);
+  }
+   
+  /* Responsivt design for mobil */
+  @media (max-width: 768px) {
+    #Spill-conteinerg {
+      padding: 1rem;
+    }
+    button {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+   
+
+
+  
+  .row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+  }
+  
+  .input-field {
+      width: 100%;
+      max-width: 200px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+  }
+  
+  .start-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .start-button:hover {
+      background-color: #2ecc71;
+      transform: scale(1.05);
+  }
+
+
+  #Canvas {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 800px;
+    height: 600px;
+    overflow: hidden;
+  }
+
+
+  #plinkoCanvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  #Buttons{
+    width:300px;
+    height:600px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }

@@ -1,0 +1,268 @@
+.money-container {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+ 
+.money-icon {
+  width: 50px; /* Juster størrelsen etter behov */
+  height: auto;
+  margin-right: 8px;
+}
+ 
+.MoneyDisplayText {
+  font-size: 16px;
+  font-weight: bold;
+  color: #b98e21;
+}
+/* Animasjon for gradient bakgrunn med sterke farger */
+@keyframes gradientBackground {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(-45deg, #880a0a, #444444, #062106, #444444);
+    background-size: 400% 400%;
+    animation: gradientBackground 15s ease infinite;
+    color: white;
+    position: relative; /* Ny linje for å lage en stabelkontekst */
+  }
+  
+  .container, .toppmeny, .sidefelt, .hovedinnhold {
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Animasjon for toppmeny */
+  @keyframes menuColorShift {
+    0% {
+      background-color: #880a0a;
+    }
+    50% {
+      background-color: #444444;
+    }
+    100% {
+      background-color: #880a0a;
+    }
+  }
+  
+  .toppmeny {
+    animation: menuColorShift 10s infinite;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    margin: 10px;
+  }
+  .sidefelt {
+    width: 200px;
+    background: #062106;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    margin: 10px;
+  }
+  
+  .sidebar-icon {
+    width: 100px; /* Set a uniform width for all icons */
+    height: 100px; /* Set a uniform height for all icons */
+    object-fit: cover; /* Ensure the image fits within the specified dimensions */
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+  }
+  
+  .sidebar-icon:hover {
+    transform: scale(1.1); /* Bildet blir 10% større ved hover */
+  }
+  
+  
+  .sidefelt a:hover {
+    background: #092709;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 15px;
+    margin: 10px;
+    overflow: hidden;
+  }
+  .hovedinnhold {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    margin: 10px;
+  }
+  
+  .bilde-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .bilde-container img {
+    max-width: 100%;
+    height: auto;
+    animation: zoom 20s ease infinite;
+    border-radius: 15px;
+  }
+  
+  @keyframes zoom {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .knapp {
+    background: #880a0a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 25px;
+    transition: background 0.3s;
+  }
+  
+  .knapp:hover {
+    background: #880a0a;
+  }
+  
+  .container, .toppmeny, .sidefelt, .hovedinnhold {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .trekant-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1; /* Trekantene havner bak alt annet */
+  }
+  
+  /* Felles stil for alle trekantkolonner */
+  .trekant-animation .trekant-column {
+    position: fixed;
+    /* Beregn left: for eksempel: (var(--i) * 10%) - 5% gir 5%, 15%, 25%, ... */
+    left: calc((var(--i) * 10%) - 5%);
+    animation: verticalMove 3s linear infinite;
+    /* Forsinkelsen regnes slik at den første ikke har delay, andre 1s osv. */
+    animation-delay: calc((var(--i) - 1) * 1s);
+  }
+  
+  /* Vertikal animasjon: fra toppen til bunnen */
+  @keyframes verticalMove {
+    0% {
+      top: -60px; /* starter utenfor toppen */
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      top: 100vh; /* helt nederst */
+      opacity: 0;
+    }
+  }
+  
+  /* Eksempel på trekantene – du kan justere størrelser etter ønske */
+  .trekant {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 30px solid;
+    animation: spin 3s linear infinite;
+  }
+  
+  /* Rotasjonsanimasjon */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Fargevalg for trekanter */
+  .trekant.red {
+    border-bottom-color: #9d0e0e;
+  }
+  .trekant.darkgray {
+    border-bottom-color: #444444;
+  }
+  .trekant.green {
+    border-bottom-color: #067506;
+  }
+  
+  .logo {
+    height: 80px;
+    border-radius: 10px;/* juster høyden etter behov */
+    /* eventuelt margin eller padding for å sentrere den fint */
+  }
+
+ 
+
+  h2 {
+      font-size: 2em; /* Make the heading larger */
+      text-align: center;
+      margin-bottom: 40px; /* Increase space between the heading and the icons */
+  }
+  
+  .game-list {
+      display: flex;
+      justify-content: center;
+      gap: 40px; /* Adjust spacing between icons */
+      margin: 20px 0;
+      margin-top: 50px;
+  }
+  
+  .sidebar-icon {
+      width: 100px; /* Set a uniform width for all icons */
+      height: 100px; /* Set a uniform height for all icons */
+      object-fit: cover; /* Ensure the image fits within the specified dimensions */
+      border-radius: 15px;
+      transition: transform 0.3s ease-in-out; /* Add transition effect */
+  }
+  
+  
+  

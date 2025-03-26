@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GambleZone</title>
+        <link rel="stylesheet" href="style.css">
+
+
+        <script>
+          //Sjekker om det finnes en verdi for gamble bucks. Hvis ikke, legger den til en ny verdi for den. 
+          window.onload = function (){
+            if(!sessionStorage.getItem("gambleBucks")){
+              if(localStorage.getItem("sessionBalance")){
+                sessionStorage.setItem("gambleBucks", localStorage.getItem("sessionBalance"));
+              }
+              else{
+                sessionStorage.setItem("gambleBucks", 1000);
+              }
+            }
+
+            document.getElementsByClassName("MoneyDisplayText")[0].innerHTML = `Balance: ${Math.round(sessionStorage.getItem("gambleBucks"))} GambleBucks`;
+
+          }
+
+          //Fjerner gamblebucks fra localstorage når nettleseren skal lukkes.
+
+          window.addEventListener("beforeunload", function () {
+            if(!navigator.userAgent.includes("Chrome")){
+              localStorage.removeItem("sessionBalance");
+            }
+
+          });
+    
+
+
+        </script>
+
+        <script>
+          const clickSound = new Audio("./Music/Theme.mp3");
+          clickSound.play();
+ 
+ 
+        </script>
+    </head>
+    <body>
+      <div class="toppmeny">
+        <img src="./images/Logo.png" alt="Gamble Hub Logo" class="logo">
+
+
+        <div class="money-container">
+          <img src="./images/Pengeikon.png" alt="Pengeikon" class="money-icon">
+          <p class="MoneyDisplayText"></p>
+        </div>
+
+      
+
+        <div>
+          <a href="./brukervilkaar.html">
+            <button class="knapp">Brukervilkår</button>        
+          </a>
+        </div>
+    </div>
+        </div>
+        <div class="container">
+          <div class="sidefelt">
+            <a href="../Blackjack/Blackjack.html">
+              <img src="./images/Blackjack.png" alt="Blackjack" class="sidebar-icon">
+            </a>
+            <a href="../Mines/Mines.html">
+              <img src="./images/Mines.png" alt="Poker" class="sidebar-icon">
+            </a>
+            <a href="../HigherLower/HigherLower.html">
+              <img src="./images/Backarat.png" alt="Backarat" class="sidebar-icon">
+            </a>
+            <a href="../Pilnko/Plinko.html">
+              <img src="./images/Plinko.png" alt="Backarat" class="sidebar-icon">
+            </a>
+          </div>
+    
+            <div class="hovedinnhold">
+                <div class="bilde-container">
+                    <img src="./images/Hodvedimg7.png" alt="Beskrivelse av bilde 2">
+                </div>
+                <h1>Velkommen til Spillsonen</h1>
+                <p>Spill og vinn store premier!</p>
+                <a href="../Games/Games.html">
+                  <button class="knapp" id="start">Start nå</button>
+                </a>
+                
+            </div>
+        </div>
+        
+    <div class="trekant-animation">
+      <div class="trekant-column" style="--i: 1;">
+        <div class="trekant red"></div>
+      </div>
+      <div class="trekant-column" style="--i: 2;">
+        <div class="trekant darkgray"></div>
+      </div>
+      <div class="trekant-column" style="--i: 3;">
+        <div class="trekant green"></div>
+      </div>
+      <div class="trekant-column" style="--i: 4;">
+        <div class="trekant red"></div>
+      </div>
+      <div class="trekant-column" style="--i: 5;">
+        <div class="trekant darkgray"></div>
+      </div>
+      <div class="trekant-column" style="--i: 6;">
+        <div class="trekant darkgray"></div>
+      </div>
+      <div class="trekant-column" style="--i: 7;">
+        <div class="trekant green"></div>
+      </div>
+      <div class="trekant-column" style="--i: 8;">
+        <div class="trekant red"></div>
+      </div>
+      <div class="trekant-column" style="--i: 9;">
+        <div class="trekant green"></div>
+      </div>
+      <div class="trekant-column" style="--i: 9;">
+        <div class="trekant red"></div>
+      </div>
+    </div>
+    
+    </div>
+</body>
+</html>
+<script src="attenplus.js"></script>
+
