@@ -180,7 +180,8 @@ const ip = "127.0.0.1"; //Backend IP addresse
     }
 
     //Legger til hendelseslyttere på add-ball knappen
-    document.getElementById("add-ball").addEventListener("click", ()=>{
+    document.getElementById("add-ball").addEventListener("click", function(event){
+      event.preventDefault();
 
       betAmount = Number(document.querySelector("input[name=bet]").value);//Innsatsbeløpet
       sessionStorage.setItem("gambleBucks", Number(sessionStorage.getItem("gambleBucks"))-betAmount);//Fjerner innsatsbeløpet fra saldoen
