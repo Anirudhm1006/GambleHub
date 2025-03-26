@@ -1,0 +1,643 @@
+.money-container {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+ 
+.money-icon {
+  width: 50px; /* Juster størrelsen etter behov */
+  height: auto;
+  margin-right: 8px;
+}
+ 
+.MoneyDisplayText {
+  font-size: 16px;
+  font-weight: bold;
+  color: #b98e21;
+}
+/* Reset og basisoppsett */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+/* Animasjon for gradient bakgrunn med sterke farger */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+ 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #880a0a, #444444, #062106, #444444);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+  color: white;
+  position: relative; /* Ny linje for å lage en stabelkontekst */
+  padding: 20px;
+  line-height: 1.6;
+  overflow-y: auto;
+}
+ 
+ 
+/* Animasjon for toppmeny */
+@keyframes menuColorShift {
+  0% {
+    background-color: #880a0a;
+  }
+  50% {
+    background-color: #444444;
+  }
+  100% {
+    background-color: #880a0a;
+  }
+}
+ 
+/* Toppmeny styling */
+.toppmeny {
+  background-color: #062106;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  animation: menuColorShift 10s infinite;
+  height: 160px;
+}
+ 
+@keyframes moneyColorCycle {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+ 
+ 
+
+ 
+/* Sidefelt styling */
+.sidefelt {
+  background-color: #062106;
+  border: 2px solid #062106;
+  border-radius: 15px;
+  padding: 15px;
+  width: 200px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;  /* Changed to fit-content */
+}
+ 
+.sidebar-icon {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+ 
+.sidebar-icon:hover {
+  transform: scale(1.1);
+}
+ 
+.sidefelt a:hover {
+  background: #092709;
+}
+ 
+/* Container styling */
+.container {
+  display: flex;
+  gap: 20px;
+  border-radius: 15px;
+  margin: 10px;
+  height: calc(100vh - 220px);  /* Adjusted to account for top menu and margins */
+}
+ 
+/* Logo styling */
+.logo {
+  height: 80px;
+  border-radius: 10px;
+}
+ 
+/* Spillcontainer for Mines-spillet */
+#Spill-conteinerg,
+.container2 {
+  background-color: #c7c7c7;
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow-y: auto;  /* This container will be scrollable */
+  height: 100%;     /* Take full height of parent */
+}
+ 
+#Spill-conteinerg p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+ 
+/* Knappestiler */
+.knapp {
+  background-color: #880a0a;  /* Rød knapp */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button {
+  background-color: #880a0a;  /* Rød knapp */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+ 
+button:hover {
+  background-color: #067506;  /* Grønn aksent ved hover */
+  transform: scale(1.05);
+}
+ 
+/* Form-styling for MinesForm */
+#MinesForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+ 
+#MinesForm h2 {
+  color: #880a0a;    /* Rød farge for overskrifter */
+}
+ 
+#MinesForm input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+ 
+/* Grid-container for boksene (spillrutenettet) */
+#Spill-conteinerg > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;  /* Reduced gap from 30px */
+  margin-bottom: 20px;
+  max-width: 800px;  /* Added max-width to control overall size */
+  margin-left: auto;  /* Center the grid */
+  margin-right: auto;
+}
+ 
+#CashoutBtn {
+  display: block;            /* Sørger for at knappen er en blokk, slik at margin virker */
+  width: fit-content;         /* Knappen tilpasser bredden etter innholdet */
+  margin: 20px auto;          /* 20px margin på toppen og bunnen, og sentrert horisontalt */
+  padding: 12px 24px;         /* Økt polstring for bedre plass rundt teksten */
+  font-size: 18px;            /* Litt større skrift for bedre lesbarhet */
+  background-color: #880a0a;  /* Rød knapp, tilpass gjerne farge hvis ønskelig */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+ 
+#CashoutBtn:hover {
+  background-color: #067506;  /* Grønn aksent ved hover */
+  transform: scale(1.05);
+}
+ 
+/* Styling for boksene */
+.box {
+  width: 100%;
+  max-width: 120px;  /* Reduced from 150px */
+  height: 120px;     /* Reduced from 150px */
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+  object-fit: cover;
+}
+ 
+.box:hover {
+  transform: scale(1.05);
+}
+ 
+/* Responsivt design for mobil */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidefelt {
+    width: 100%;
+    margin-right: 0;
+  }
+  #Spill-conteinerg {
+    padding: 1rem;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+ 
+.trekant-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1; /* Trekantene havner bak alt annet */
+}
+ 
+/* Felles stil for alle trekantkolonner */
+.trekant-animation .trekant-column {
+  position: fixed;
+  /* Beregn left: for eksempel: (var(--i) * 10%) - 5% gir 5%, 15%, 25%, ... */
+  left: calc((var(--i) * 10%) - 5%);
+  animation: verticalMove 3s linear infinite;
+  /* Forsinkelsen regnes slik at den første ikke har delay, andre 1s osv. */
+  animation-delay: calc((var(--i) - 1) * 1s);
+}
+ 
+/* Vertikal animasjon: fra toppen til bunnen */
+@keyframes verticalMove {
+  0% {
+    top: -60px; /* starter utenfor toppen */
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100vh; /* helt nederst */
+    opacity: 0;
+  }
+}
+ 
+/* Eksempel på trekantene – du kan justere størrelser etter ønske */
+.trekant {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid;
+  animation: spin 3s linear infinite;
+}
+ 
+/* Rotasjonsanimasjon */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+ 
+/* Fargevalg for trekanter */
+.trekant.red {
+  border-bottom-color: #9d0e0e;
+}
+.trekant.darkgray {
+  border-bottom-color: #444444;
+}
+.trekant.green {
+  border-bottom-color: #067506;
+}
+ 
+ /* Reset og basisoppsett */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Animasjon for gradient bakgrunn med sterke farger */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(-45deg, #880a0a, #444444, #062106, #444444);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+  color: white;
+  position: relative; /* Ny linje for å lage en stabelkontekst */
+  padding: 20px;
+  line-height: 1.6;
+}
+
+
+/* Animasjon for toppmeny */
+@keyframes menuColorShift {
+  0% {
+    background-color: #880a0a;
+  }
+  50% {
+    background-color: #444444;
+  }
+  100% {
+    background-color: #880a0a;
+  }
+}
+
+/* Toppmeny styling */
+.toppmeny {
+  background-color: #062106;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  animation: menuColorShift 10s infinite;
+  height: 160px;
+}
+
+@keyframes moneyColorCycle {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* Sidefelt styling */
+.sidefelt {
+  background-color: #062106;
+  border: 2px solid #062106;  /* Mørk grønn aksent */
+  border-radius: 15px;
+  padding: 15px;
+  width: 200px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-icon {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-icon:hover {
+  transform: scale(1.1);
+}
+
+.sidefelt a:hover {
+  background: #092709;
+}
+
+/* Container styling */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-radius: 15px;
+  margin: 10px;
+  overflow: hidden;
+}
+
+/* Logo styling */
+.logo {
+  height: 80px;
+  border-radius: 10px;
+}
+
+/* Spillcontainer for Mines-spillet */
+#Spill-conteinerg,
+.container2 {
+  background-color: #c7c7c7;        /* Sleek hvit bakgrunn */      /* Rød aksent */
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+#Spill-conteinerg p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Knappestiler */
+button {
+  background-color: #880a0a;  /* Rød knapp */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #067506;  /* Grønn aksent ved hover */
+  transform: scale(1.05);
+}
+
+/* Form-styling for MinesForm */
+#MinesForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#MinesForm h2 {
+  color: #880a0a;    /* Rød farge for overskrifter */
+}
+
+#MinesForm input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Grid-container for boksene (spillrutenettet) */
+/* Denne containeren antas å ligge rett etter formen i #Spill-conteinerg */
+#Spill-conteinerg > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* For 16 bokser: 4 kolonner */
+  gap: 30px;  /* Økt gap for bedre avstand */
+  margin-bottom: 20px;
+}
+
+#CashoutBtn {
+  display: block;            /* Sørger for at knappen er en blokk, slik at margin virker */
+  width: fit-content;         /* Knappen tilpasser bredden etter innholdet */
+  margin: 20px auto;          /* 20px margin på toppen og bunnen, og sentrert horisontalt */
+  padding: 12px 24px;         /* Økt polstring for bedre plass rundt teksten */
+  font-size: 18px;            /* Litt større skrift for bedre lesbarhet */
+  background-color: #880a0a;  /* Rød knapp, tilpass gjerne farge hvis ønskelig */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#CashoutBtn:hover {
+  background-color: #067506;  /* Grønn aksent ved hover */
+  transform: scale(1.05);
+}
+
+/* Styling for boksene */
+.box {
+  width: 100%;
+  max-width: 150px;  /* Økt størrelse fra tidligere 80px */
+  height: 150px;     /* Fast høyde for boksene */
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+  object-fit: cover;
+}
+
+.box:hover {
+  transform: scale(1.05);
+}
+
+/* Responsivt design for mobil */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .sidefelt {
+    width: 100%;
+    margin-right: 0;
+  }
+  #Spill-conteinerg {
+    padding: 1rem;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.trekant-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1; /* Trekantene havner bak alt annet */
+}
+
+/* Felles stil for alle trekantkolonner */
+.trekant-animation .trekant-column {
+  position: fixed;
+  /* Beregn left: for eksempel: (var(--i) * 10%) - 5% gir 5%, 15%, 25%, ... */
+  left: calc((var(--i) * 10%) - 5%);
+  animation: verticalMove 3s linear infinite;
+  /* Forsinkelsen regnes slik at den første ikke har delay, andre 1s osv. */
+  animation-delay: calc((var(--i) - 1) * 1s);
+}
+
+/* Vertikal animasjon: fra toppen til bunnen */
+@keyframes verticalMove {
+  0% {
+    top: -60px; /* starter utenfor toppen */
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100vh; /* helt nederst */
+    opacity: 0;
+  }
+}
+
+/* Eksempel på trekantene – du kan justere størrelser etter ønske */
+.trekant {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 30px solid;
+  animation: spin 3s linear infinite;
+}
+
+/* Rotasjonsanimasjon */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fargevalg for trekanter */
+.trekant.red {
+  border-bottom-color: #9d0e0e;
+}
+.trekant.darkgray {
+  border-bottom-color: #444444;
+}
+.trekant.green {
+  border-bottom-color: #067506;
+}
+
+

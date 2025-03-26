@@ -1,0 +1,33 @@
+body {
+    background-color: #333; /* Mørk bakgrunn for høy kontrast og for at det skal se likt ut som resten av nettsiden*/
+    color: #fff; /* Hvit tekst for god synlighet */
+    font-family: Arial, sans-serif;
+    padding: 20px; /* Gir litt luft rundt innholdet */
+}
+
+h1, h2, h3 {
+    color: #f00; /*Rød for å matche med fargepaletten av nettsiden*/
+}
+
+h1 {
+    border-bottom: 2px solid #f00; /*Understreking for å skille ut hovedoverskriften*/
+    padding-bottom: 10px;
+}
+
+p {
+    line-height: 1.6; /*Øker linjeavstanden*/
+}
+
+a {
+    color: #f00;
+    text-decoration: none; /*Fjerner den innebygde understrekning for renere utseende*/
+    font-weight: bold; 
+}
+
+footer {
+    margin-top: 20px; 
+    padding-top: 10px; 
+    border-top: 1px solid #f00; /*Rød linje for å skille footeren visuelt*/
+    text-align: center; 
+    color: #ccc; 
+}

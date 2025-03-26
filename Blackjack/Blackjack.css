@@ -1,0 +1,225 @@
+.money-container {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+ 
+.money-icon {
+  width: 50px; /* Juster størrelsen etter behov */
+  height: auto;
+  margin-right: 8px;
+}
+ 
+.MoneyDisplayText {
+  font-size: 16px;
+  font-weight: bold;
+  color: #b98e21;
+}
+/* Reset og basisoppsett */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+   
+  /* Body styling */
+  body {
+    background-color: #1a1a1a; /* Mørk bakgrunn */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 1rem;
+  }
+   
+  /* Elementstabling for layout */
+  .container, .toppmeny, .sidefelt {
+    position: relative;
+    z-index: 2;
+  }
+   
+  /* Animasjon for toppmeny */
+  @keyframes menuColorShift {
+    0% {
+      background-color: #880a0a;
+    }
+    50% {
+      background-color: #444444;
+    }
+    100% {
+      background-color: #880a0a;
+    }
+  }
+   
+  .toppmeny {
+    animation: menuColorShift 10s infinite;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px;
+    margin: 10px;
+  }
+   
+  /* Sidefelt styling */
+  .sidefelt {
+    width: 200px;
+    background: #062106;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    margin: 10px;
+  }
+   
+  .sidebar-icon {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin: 10px auto;
+    border-radius: 15px;
+    transition: transform 0.3s ease-in-out;
+  }
+   
+  .sidebar-icon:hover {
+    transform: scale(1.1);
+  }
+   
+  .sidefelt a:hover {
+    background: #092709;
+  }
+   
+  /* Container styling */
+  .container {
+    display: flex;
+    flex: 1;
+    border-radius: 15px;
+    margin: 10px;
+    overflow: hidden;
+  }
+   
+  /* Logo styling */
+  .logo {
+    height: 80px;
+    border-radius: 10px;
+  }
+   
+  /* Spillcontainer */
+  #Spill-conteinerg {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #2c2c2c;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+   
+  #Spill-conteinerg p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+   
+  /* Knappestiler */
+  .knapp {
+    background-color: #880a0a;  /* Rød knapp */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+   
+  button:hover {
+    background-color: #2ecc71;
+    transform: scale(1.05);
+  }
+   
+  /* Responsivt design for mobil */
+  @media (max-width: 768px) {
+    #Spill-conteinerg {
+      padding: 1rem;
+    }
+    button {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+   
+
+
+
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #333;
+    padding: 20px;
+}
+
+.card-row {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    min-height: 100px;
+    position: relative;
+}
+
+.card-row::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -25px;
+    left: 10px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.dealer {
+    margin-bottom: 40px;
+}
+
+.card {
+    width: 80px;
+    height: 116px;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+#points {
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 15px 0;
+}
+
+#Result {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+button {
+    margin: 5px 10px;
+}
